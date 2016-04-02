@@ -54,7 +54,7 @@ Exemple de payload :
 
 ## Générateur de données
 
-	http://home.rapsspider.fr:8080/Hackathon/JAVA_donnees_aleatoires
+	https://github.com/ImpotCible/generator
 
 ## Membres de l'équipe
 
