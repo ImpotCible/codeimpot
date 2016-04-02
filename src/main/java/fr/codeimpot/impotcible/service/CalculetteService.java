@@ -104,12 +104,13 @@ public class CalculetteService {
 			JSONParser parser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) parser.parse(reponse);
 			JSONObject resultats = (JSONObject) jsonObject.get(CALCULATE_RESULTS);
-			Long montantLong = (Long) resultats.get(IRN);
-			if (montantLong != null) {
-				montant = Math.toIntExact(montantLong);
+			if (resultats != null) {
+				Long montantLong = (Long) resultats.get(IRN);
+				if (montantLong != null) {
+					montant = Math.toIntExact(montantLong);
+				}
+				logger.info("Montant IR {}", montant);
 			}
-			logger.info("Montant IR {}", montant);
-
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} catch (ParseException e) {

@@ -121,4 +121,12 @@ public class Declarant {
 		this.codesRev = codesRev;
 	}
 
+	@Override
+	public String toString() {
+		return "Declarant [id=" + id + ", dateNaissance=" + dateNaissance + ", codePostal=" + codePostal
+				+ ", situationFamiliale=" + situationFamiliale + ", nombreEnfants=" + nombreEnfants + ", salaire="
+				+ salaire + ", salaireConjoint=" + salaireConjoint + ", salaires=" + salaires + ", cluster=" + cluster
+				+ ", montantIR=" + montantIR + ", distance=" + distance + ", codesRev=" + codesRev + "]";
+	}
+
 }

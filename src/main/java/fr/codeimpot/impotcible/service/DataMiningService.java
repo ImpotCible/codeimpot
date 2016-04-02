@@ -75,7 +75,7 @@ public class DataMiningService {
 		instance.setValue(1, declarant.getDateNaissance());
 		instance.setValue(2, declarant.getSituationFamiliale());
 		instance.setValue(3, declarant.getNombreEnfants());
-		instance.setValue(4, declarant.getSalaires());
+		instance.setValue(4, declarant.getSalaire() + declarant.getSalaireConjoint());
 
 		try {
 			return clusterer.clusterInstance(instance);
@@ -121,12 +121,19 @@ public class DataMiningService {
 	}
 
 	private Instance creerInstance(Declarant utilisateur) {
+		System.out.println(utilisateur);
 		Instance instance = (Instance) instances.lastInstance().copy();
 		instance.setValue(0, 0);
 		instance.setValue(1, utilisateur.getDateNaissance());
 		instance.setValue(2, utilisateur.getSituationFamiliale());
 		instance.setValue(3, utilisateur.getNombreEnfants());
-		instance.setValue(4, utilisateur.getSalaires());
+		double salaires = 0;
+		if (utilisateur.getSalaires() != null) {
+			salaires = utilisateur.getSalaires();
+		} else if (utilisateur.getSalaire() != null || utilisateur.getSalaireConjoint() != null) {
+			salaires = utilisateur.getSalaire() + utilisateur.getSalaire();
+		}
+		instance.setValue(4, salaires);
 		return instance;
 	}
 
