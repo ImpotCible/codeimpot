@@ -27,14 +27,14 @@ header {
 	  min-width: 100px;
 	  font-weight: bold;
 	  display: block;
-	  color: #4C0099;
+	  color: #0275d8;
 	  background-color: transparent;
 	  border-bottom: .25rem solid transparent;
 	}
 
     a:hover, a:focus {
-	  color: darken($headerColor, 25%);
-      border-bottom-color: darken($headerColor, 25%);
+	  color: #9933FF;
+      border-bottom-color: #9933FF;
     }
 
 	a + a {

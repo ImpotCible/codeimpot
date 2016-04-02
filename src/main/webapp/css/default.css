@@ -4678,13 +4678,12 @@ div#declarant div.panel-heading button {
   border-radius: 0.30rem; }
 
 footer {
-  display: none;
-  background-color: #000;
+  margin: 0px;
+  background-color: #26004d;
   color: #FFF;
   width: 100%;
-  padding: 10px 5px 10px 5px; }
-  footer .hackathon {
-    float: right; }
+  padding: 5px 10px;
+  text-align: right; }
 
 header {
   height: 50px;
@@ -4703,12 +4702,12 @@ header {
       min-width: 100px;
       font-weight: bold;
       display: block;
-      color: #4C0099;
+      color: #0275d8;
       background-color: transparent;
       border-bottom: .25rem solid transparent; }
     header nav a:hover, header nav a:focus {
-      color: #bfbfbf;
-      border-bottom-color: #bfbfbf; }
+      color: #9933FF;
+      border-bottom-color: #9933FF; }
     header nav a + a {
       margin-left: 1rem; }
     header nav a.active {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="codeImpots" lang="fr">
 <head>
-	<title>#CodeImpots</title>
+	<title>Impôt-Cible</title>
 	<meta charset="utf8" />
 
 	<link rel="stylesheet" href="css/default.css" />
@@ -160,7 +160,7 @@
 		<!-- TODO mécanisme d'onglets pour afficher les différents graphes -->
 
 		<!-- Affiche du graphe force-layout -->
-        <div class="graph_container" id="graphiques" ng-show="proches.length">
+        <div class="graph_container container" id="graphiques" ng-show="proches.length">
 <!--             <ul class="nav nav-tabs"> -->
 <!-- 			    <li class="nav-item"> -->
 <!-- 			        <a ng-class="{active: graphe=='forcelayout'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('forcelayout')">Force et distance</a> -->
@@ -176,7 +176,7 @@
 					</div>
 					<!-- Détail du déclarant proche dans un caddre sur la droite -->
 					<div class="col-sm-5 col-md-4 col-lg-3" >
-						<div class="card card-block">
+						<div class="card card-block" ng-show="displayDetails">
 						  <!-- Default panel contents -->
 						  <div class="card-title"><h3>Détails sur le déclarant</h3></div>
 						  <!-- TODO à compléter -->
@@ -213,7 +213,7 @@
 									<th>IR</th>
 									<th>Distance</th>
 								</tr>
-							</thead>
+							</thead> 
 							<tbody>
 								<tr ng-repeat="proche in proches | orderBy:'+distance'">
 									<td>{{proche.dateNaissance}}</td>
