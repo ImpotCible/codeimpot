@@ -69,11 +69,11 @@ app.directive('forceLayout', function() {
 				// Construire le conteneur SVG
 				var margin = {left : 20, top : 20};
 				
-				if(svg == null) {
-					svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height).attr("id", "forceLayout");
-				} else {
-					svg.empty();
+				if(svg != null) {
+					svg.remove();
 				}
+				
+				svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height).attr("id", "forceLayout");
 
 				// Remplir le SVG avec le dataset
 				var force = d3.layout.force().nodes(graph.nodes)
