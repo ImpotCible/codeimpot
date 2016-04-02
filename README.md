@@ -58,13 +58,17 @@ Exemple de payload :
 
 ## Membres de l'équipe
 
-Yann GLORIAU
-Stephane MONFORT
-Christophe DE MINGUINE
-Vireya NIHM
-Jason BOURLARD
-Pierre BOURDU
-Eric GERMAN
-Tiffany HAUMEY
-Teo ROBERJOT
-Benjamin JEAN
+	Yann GLORIAU
+	Stephane MONFORT
+	Christophe DE MINGUINE
+	Vireya NIHM
+	Jason BOURLARD
+	Pierre BOURDU
+	Eric GERMAN
+	Tiffany HAUMEY
+	Teo ROBERJOT
+	Benjamin JEAN
+	
+## Forum
+
+	[Projet Comparimpots](https://forum.openfisca.fr/t/projet-comparimpots/134)
