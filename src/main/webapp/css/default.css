@@ -4634,8 +4634,42 @@ a.bg-danger:focus, a.bg-danger:hover {
 #graphiques #graph-forcelayout {
   height: 500px; }
 
+div.graph_container {
+  vertical-align: middle;
+  min-height: 400px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: #FFF; }
+
 .tab-content {
   margin-top: 20px; }
+
+div#declarant input, div#declarant select {
+  color: #0080FF; }
+
+div#declarant div.tab-pane {
+  background: #FFF;
+  padding: 50px 300px 50px 80px;
+  position: relative; }
+
+div#declarant button {
+  position: absolute;
+  right: 40px;
+  top: 100px;
+  width: 200px;
+  height: 80px;
+  border-radius: 0.30rem;
+  font-size: 2rem;
+  background-color: #4C0099; }
+
+div#declarant button:hover {
+  background-color: #6600CC;
+  border-bottom-color: #bfbfbf; }
+
+div#declarant textarea {
+  height: 200px; }
 
 header {
   height: 50px;
@@ -4667,7 +4701,6 @@ header {
       border-bottom-color: #e6e6e6; }
 
 div.Logo_container img {
-  margin-left: -200px;
   height: 200px; }
 
 .section {
@@ -4680,44 +4713,10 @@ div.Logo_container img {
   .section:nth-child(even) {
     background: rgba(221, 221, 221, 0.25); }
 
-div.graph_container {
-  vertical-align: middle;
-  min-height: 400px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
-  background: #FFF; }
-
 h1, h2, h3, h4 {
   color: #4C0099;
   padding-top: 5px;
   padding-bottom: 5px; }
-
-div#declarant input, div#declarant select {
-  color: #0080FF; }
-
-div#declarant div.tab-pane {
-  background: #FFF;
-  padding: 50px 300px 50px 80px;
-  position: relative; }
-
-div#declarant button {
-  position: absolute;
-  right: 40px;
-  top: 100px;
-  width: 200px;
-  height: 80px;
-  border-radius: 0.30rem;
-  font-size: 2rem;
-  background-color: #4C0099; }
-
-div#declarant button:hover {
-  background-color: #6600CC;
-  border-bottom-color: #bfbfbf; }
-
-div#declarant textarea {
-  height: 200px; }
 
 body .section {
   display: none; }
