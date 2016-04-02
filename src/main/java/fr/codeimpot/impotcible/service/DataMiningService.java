@@ -23,7 +23,7 @@ import weka.experiment.InstanceQuery;
 import weka.filters.unsupervised.attribute.Remove;
 
 @Service
-public class DataMiningService implements InitializingBean{
+public class DataMiningService implements InitializingBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataMiningService.class);
 
@@ -76,7 +76,7 @@ public class DataMiningService implements InitializingBean{
 		instance.setValue(1, declarant.getDateNaissance());
 		instance.setValue(2, declarant.getSituationFamiliale());
 		instance.setValue(3, declarant.getNombreEnfants());
-		instance.setValue(4, declarant.getNetImposable());
+		instance.setValue(4, declarant.getSalaires());
 
 		try {
 			return clusterer.clusterInstance(instance);
@@ -127,7 +127,7 @@ public class DataMiningService implements InitializingBean{
 		instance.setValue(1, utilisateur.getDateNaissance());
 		instance.setValue(2, utilisateur.getSituationFamiliale());
 		instance.setValue(3, utilisateur.getNombreEnfants());
-		instance.setValue(4, utilisateur.getNetImposable());
+		instance.setValue(4, utilisateur.getSalaires());
 		return instance;
 	}
 
@@ -151,7 +151,7 @@ public class DataMiningService implements InitializingBean{
 		query.setDatabaseURL(cred.getConnectionString());
 		query.setUsername(cred.getUsername());
 		query.setPassword(cred.getPassword());
-		query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, net_imposable from declarants");
+		query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, salaires from declarants");
 
 		instances = query.retrieveInstances();
 
@@ -173,19 +173,19 @@ public class DataMiningService implements InitializingBean{
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		if(instances == null){
+		if (instances == null) {
 			calculerCluster(100);
 			InstanceQuery query = new InstanceQuery();
 			DatabaseCredentials cred = DatabaseCredentials.getCredentials();
 			query.setDatabaseURL(cred.getConnectionString());
 			query.setUsername(cred.getUsername());
 			query.setPassword(cred.getPassword());
-			query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, net_imposable from declarants");
+			query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, salaires from declarants");
 
 			instances = query.retrieveInstances();
 			buildSimpleKMeans(100);
 		}
-		
+
 	}
 
 }
