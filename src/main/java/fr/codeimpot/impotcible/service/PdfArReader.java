@@ -35,7 +35,38 @@ public class PdfArReader {
 		String contenu = stripper.getText(pddDocument);
 		String toAnalyze = "";
 
-		if (contenu == null || contenu.indexOf(beginString) == 0 || contenu.indexOf(endString)  == 0) {
+		if(contenu == null){
+			return resMap;
+		}
+		
+		Pattern anneNaissance = Pattern.compile("née le ../../(\\d\\d\\d\\d)");
+		Matcher anneeNaissanceMatch = anneNaissance.matcher(contenu);
+		if(anneeNaissanceMatch.find()){
+			System.out.println("Annee de naissance "+anneeNaissanceMatch.group(1));
+			resMap.put("V_0DA", anneeNaissanceMatch.group(1));
+		}
+		
+		Pattern sitFam  = Pattern.compile("Situation de famille : (.)*");
+		
+		Matcher matchSitFam = sitFam.matcher(contenu);
+		if(matchSitFam.find()){
+			System.out.println("J ai trouvé "+matchSitFam.group());
+			if(matchSitFam.group().contains("Divor")){
+				resMap.put("0AD", "1");
+			}
+		}
+		
+		
+		Pattern persCharge  = Pattern.compile("Personnes à charge : (\\d)");
+		
+		Matcher matchpersCharge = persCharge.matcher(contenu);
+		if(matchpersCharge.find()){
+			System.out.println("J ai trouvé charge : "+matchpersCharge.group(1));
+				resMap.put("0CF", matchpersCharge.group(1));
+		}
+		
+		
+		if ( contenu.indexOf(beginString) == 0 || contenu.indexOf(endString)  == 0) {
 			return resMap;
 		}
 		toAnalyze = contenu.substring(contenu.indexOf(beginString) + beginString.length() + 1,
@@ -43,6 +74,8 @@ public class PdfArReader {
 		String[] codeRev = toAnalyze.split("\n");
 		Pattern code = Pattern.compile(arKeyPattern);
 		Pattern value = Pattern.compile(arValuePattern);
+		
+		
 		for (String ligne : codeRev) {
 			String cle = "";
 			String valeur = "";
@@ -72,6 +105,8 @@ public class PdfArReader {
 			reader.endString = "DISCORDANCES � V�RIFIER";
 			reader.arKeyPattern = "\\d\\s(\\w)*\\b";
 			reader.arValuePattern = "(\\d)*$";
+			
+		
 			Map<String, String> res = reader.convertARToKeyMap(fic);
 			for (String key : res.keySet()) {
 				System.out.println("Cl� " + key + " valeur " + res.get(key));

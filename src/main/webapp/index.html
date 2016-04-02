@@ -71,7 +71,7 @@
             <div class="container">
 	            <ul class="nav nav-tabs">
 				    <li class="nav-item">
-				        <a ng-class="{active: graphe=='textuelle'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('textuelle')">Textuelle</a>
+				        <a ng-class="{active: graphe=='textuel'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('textuel')">Textuelle</a>
 				    </li>
 				    <li class="nav-item">
 				        <a ng-class="{active: graphe=='codes'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('codes')">Codes</a>
@@ -81,7 +81,7 @@
 				    </li>
 				</ul>
 				<div class="tab-content col-xs-">
-		            <div class="tab-pane" ng-class="{active: declarationType=='textuelle'}">
+		            <div class="tab-pane" ng-class="{active: declarationType=='textuel'}">
 <!-- 						<h2 class="cover-heading">Ma Déclaration.</h2> -->
 						<div class="form-inline nl-form">
 							Je suis né en <input type="text" size="4" ng-model="declarant.dateNaissance" class="form-control" />,
@@ -91,9 +91,9 @@
 								<option value="M">Marié</option>
 								<option value="D">Divorcé</option>
 							</select>, j'ai <input type="text" size="2" ng-model="declarant.nombreEnfants" class="form-control" />
-							enfant(s). Mon revenu d'activité est de <input type="text" size="12" ng-model="declarant.netImposable" class="form-control" /> 
+							enfant(s). Mon revenu d'activité est de <input type="text" size="12" ng-model="declarant.salaire" class="form-control" /> 
 							<span ng-if="declarant.situationFamiliale=='M'">et celui de mon/ma conjoint(e) est de 
-							<input type="text" size="12" ng-model="declarant.netImposableConjoint" class="form-control" /></span>.<br />
+							<input type="text" size="12" ng-model="declarant.salaireConjoint" class="form-control" /></span>.<br />
 							
 							<button type="submit" class="btn btn-primary  pull-xs-right" ng-click="getProches()">Calculer!</button>
 						</div>
@@ -144,19 +144,33 @@
 
 		<!-- Affiche du graphe force-layout -->
         <div class="graph_container" id="graphiques" ng-show="proches.length">
-        	<div class="container">
-	            <ul class="nav nav-tabs">
-				    <li class="nav-item">
-				        <a ng-class="{active: graphe=='forcelayout'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('forcelayout')">Force et distance</a>
-				    </li>
-	<!-- 			    <li class="nav-item"> -->
-	<!-- 			        <a ng-class="{active: graphe=='tilfordtree'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('tilfordtree')">Arbre</a> -->
-	<!-- 			    </li> -->
-				</ul>
-	            <div id="graph-forcelayout" ng-if="graphe=='forcelayout'">
-				    <div class="row">
-						<!-- Graphe sur la gauche -->
-						<div class="col-sm-7 col-md-8 col-lg-9" force-layout>
+            <ul class="nav nav-tabs">
+			    <li class="nav-item">
+			        <a ng-class="{active: graphe=='forcelayout'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('forcelayout')">Force et distance</a>
+			    </li>
+			    <li class="nav-item">
+			        <a ng-class="{active: graphe=='tilfordtree'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('tilfordtree')">Arbre</a>
+			    </li>
+			</ul>
+            <div id="graph-forcelayout" ng-if="graphe=='forcelayout'">
+			    <div class="row">
+					<!-- Graphe sur la gauche -->
+					<div class="col-sm-7 col-md-8 col-lg-9" force-layout>
+					</div>
+					<!-- Détail du déclarant proche dans un caddre sur la droite -->
+					<div class="col-sm-5 col-md-4 col-lg-3">
+						<div class="card card-block">
+						  <!-- Default panel contents -->
+						  <div class="card-title"><h3>Détails sur le déclarant</h3></div>
+						  <!-- TODO à compléter -->
+						  <div class="card-text">					    
+						    <p>Distance : {{proche.distance}}</p>
+						    <p>Année de naissance : {{proche.dateNaissance}}</p>
+						    <p>Situation familialee : {{proche.situationFamiliale}}</p>
+						    <p>Nombre d'enfants : {{proche.nombreEnfants}}</p>
+						    <p>Traitements et salaires : {{proche.salaires}}</p>
+						    <p>Montant IR = {{proche.montantIR}}</p>
+						  </div>		
 						</div>
 						<!-- Détail du déclarant proche dans un caddre sur la droite -->
 						<div class="col-sm-5 col-md-4 col-lg-3">
@@ -193,7 +207,7 @@
 									<th>Année naissance</th>
 									<th>Situation familiale</th>
 									<th>Nombre enfants à charge</th>
-									<th>Revenu net imposable</th>
+									<th>Traitement et salaires</th>
 									<th>IR</th>
 									<th>Distance</th>
 								</tr>
@@ -203,7 +217,7 @@
 									<td>{{proche.dateNaissance}}</td>
 									<td>{{proche.situationFamiliale}}</td>
 									<td>{{proche.nombreEnfants}}</td>
-									<td>{{proche.netImposable}}</td>
+									<td>{{proche.salaires}}</td>
 									<td>{{proche.montantIR}}</td>
 									<td>{{proche.distance}}</td>
 								</tr>

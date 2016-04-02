@@ -50,17 +50,26 @@ Récupérer les individus les plus proches
 
 Exemple de payload :
 
-	{"dateNaissance":1975,"codePostal":75017,"situationFamiliale":"M","nombreEnfants":"3","netImposable":"15000"}
+	{"dateNaissance":1975,"codePostal":75017,"situationFamiliale":"M","nombreEnfants":"3","salaires":"15000"}
+
+## Générateur de données
+
+	http://home.rapsspider.fr:8080/Hackathon/JAVA_donnees_aleatoires
 
 ## Membres de l'équipe
 
-Yann GLORIAU
-Stephane MONFORT
-Christophe DE MINGUINE
-Vireya NIHM
-Jason BOURLARD
-Pierre BOURDU
-Eric GERMAN
-Tiffany HAUMEY
-Teo ROBERJOT
-Benjamin JEAN
+	Yann GLORIAU
+	Stephane MONFORT
+	Christophe DE MINGUINE
+	Vireya NIHM
+	Jason BOURLARD
+	Pierre BOURDU
+	Eric GERMAN
+	Tiffany HAUMEY
+	Teo ROBERJOT
+	Benjamin JEAN
+	Clement DORNIER
+	
+## Forum
+
+[Projet Comparimpots](https://forum.openfisca.fr/t/projet-comparimpots/134)

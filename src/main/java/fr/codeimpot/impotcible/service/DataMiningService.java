@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ import weka.experiment.InstanceQuery;
 import weka.filters.unsupervised.attribute.Remove;
 
 @Service
-public class DataMiningService implements InitializingBean{
+public class DataMiningService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataMiningService.class);
 
@@ -76,7 +75,7 @@ public class DataMiningService implements InitializingBean{
 		instance.setValue(1, declarant.getDateNaissance());
 		instance.setValue(2, declarant.getSituationFamiliale());
 		instance.setValue(3, declarant.getNombreEnfants());
-		instance.setValue(4, declarant.getNetImposable());
+		instance.setValue(4, declarant.getSalaire() + declarant.getSalaireConjoint());
 
 		try {
 			return clusterer.clusterInstance(instance);
@@ -111,23 +110,30 @@ public class DataMiningService implements InitializingBean{
 			if (distance > distanceMax) {
 				distanceMax = distance;
 			}
-			dec.setDistance(distance);
+			dec.setDistance(new Double(distance));
 		}
 
 		// Normalisation des distances
 		for (Declarant dec : declarants) {
-			dec.setDistance(Math.round(100 * dec.getDistance() / distanceMax));
+			dec.setDistance(new Long(Math.round(100 * dec.getDistance() / distanceMax)).doubleValue());
 		}
 
 	}
 
 	private Instance creerInstance(Declarant utilisateur) {
+		System.out.println(utilisateur);
 		Instance instance = (Instance) instances.lastInstance().copy();
 		instance.setValue(0, 0);
 		instance.setValue(1, utilisateur.getDateNaissance());
 		instance.setValue(2, utilisateur.getSituationFamiliale());
 		instance.setValue(3, utilisateur.getNombreEnfants());
-		instance.setValue(4, utilisateur.getNetImposable());
+		double salaires = 0;
+		if (utilisateur.getSalaires() != null) {
+			salaires = utilisateur.getSalaires();
+		} else if (utilisateur.getSalaire() != null || utilisateur.getSalaireConjoint() != null) {
+			salaires = utilisateur.getSalaire() + utilisateur.getSalaire();
+		}
+		instance.setValue(4, salaires);
 		return instance;
 	}
 
@@ -151,7 +157,7 @@ public class DataMiningService implements InitializingBean{
 		query.setDatabaseURL(cred.getConnectionString());
 		query.setUsername(cred.getUsername());
 		query.setPassword(cred.getPassword());
-		query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, net_imposable from declarants");
+		query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, salaires from declarants");
 
 		instances = query.retrieveInstances();
 
@@ -169,25 +175,6 @@ public class DataMiningService implements InitializingBean{
 		clusterAlg.getDistanceFunction();
 
 		clusterer.buildClusterer(instances);
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		System.out.println("YAHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-		if(instances == null){
-			calculerCluster(100);
-			InstanceQuery query = new InstanceQuery();
-			DatabaseCredentials cred = DatabaseCredentials.getCredentials();
-			query.setDatabaseURL(cred.getConnectionString());
-			query.setUsername(cred.getUsername());
-			query.setPassword(cred.getPassword());
-			query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, net_imposable from declarants");
-
-			instances = query.retrieveInstances();
-			buildSimpleKMeans(100);
-			System.out.println("RECALCUL OK ");
-		}
-		
 	}
 
 }

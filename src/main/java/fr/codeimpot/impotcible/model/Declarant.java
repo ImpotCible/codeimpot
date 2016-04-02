@@ -11,14 +11,17 @@ import java.util.List;
 public class Declarant {
 
 	private Long id;
-	private int dateNaissance;
-	private int codePostal;
+	private Integer dateNaissance;
+	private Integer codePostal;
 	private String situationFamiliale;
-	private int nombreEnfants;
-	private int netImposable;
-	private int cluster;
-	private int montantIR;
-	private double distance;
+	private Integer nombreEnfants;
+	private Integer salaire;
+	private Integer salaireConjoint;
+	private Integer salaires;
+	private Integer cluster;
+
+	private Integer montantIR;
+	private Double distance;
 
 	private List<CodeRevenu> codesRev;
 
@@ -30,19 +33,19 @@ public class Declarant {
 		this.id = id;
 	}
 
-	public int getDateNaissance() {
+	public Integer getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(int dateNaissance) {
+	public void setDateNaissance(Integer dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
-	public int getCodePostal() {
+	public Integer getCodePostal() {
 		return codePostal;
 	}
 
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(Integer codePostal) {
 		this.codePostal = codePostal;
 	}
 
@@ -54,59 +57,76 @@ public class Declarant {
 		this.situationFamiliale = situationFamiliale;
 	}
 
-	public int getNombreEnfants() {
+	public Integer getNombreEnfants() {
 		return nombreEnfants;
 	}
 
-	public void setNombreEnfants(int nombreEnfants) {
+	public void setNombreEnfants(Integer nombreEnfants) {
 		this.nombreEnfants = nombreEnfants;
 	}
 
-	public int getNetImposable() {
-		return netImposable;
+	public Integer getSalaire() {
+		return salaire;
 	}
 
-	public void setNetImposable(int netImposable) {
-		this.netImposable = netImposable;
+	public void setSalaire(Integer salaire) {
+		this.salaire = salaire;
+	}
+
+	public Integer getSalaireConjoint() {
+		return salaireConjoint;
+	}
+
+	public void setSalaireConjoint(Integer salaireConjoint) {
+		this.salaireConjoint = salaireConjoint;
+	}
+
+	public Integer getSalaires() {
+		return salaires;
+	}
+
+	public void setSalaires(Integer salaires) {
+		this.salaires = salaires;
+	}
+
+	public Integer getCluster() {
+		return cluster;
+	}
+
+	public void setCluster(Integer cluster) {
+		this.cluster = cluster;
+	}
+
+	public Integer getMontantIR() {
+		return montantIR;
+	}
+
+	public void setMontantIR(Integer montantIR) {
+		this.montantIR = montantIR;
+	}
+
+	public Double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Double distance) {
+		this.distance = distance;
 	}
 
 	public List<CodeRevenu> getCodesRev() {
 		return codesRev;
 	}
 
-	public void setCodesRev(List<CodeRevenu> codes) {
-		this.codesRev = codes;
-	}
-
-	public int getCluster() {
-		return cluster;
-	}
-
-	public void setCluster(int cluster) {
-		this.cluster = cluster;
-	}
-
-	public int getMontantIR() {
-		return montantIR;
-	}
-
-	public void setMontantIR(int montantIR) {
-		this.montantIR = montantIR;
-	}
-
-	public double getDistance() {
-		return distance;
-	}
-
-	public void setDistance(double distance) {
-		this.distance = distance;
+	public void setCodesRev(List<CodeRevenu> codesRev) {
+		this.codesRev = codesRev;
 	}
 
 	@Override
 	public String toString() {
 		return "Declarant [id=" + id + ", dateNaissance=" + dateNaissance + ", codePostal=" + codePostal
-				+ ", situationFamiliale=" + situationFamiliale + ", nombreEnfants=" + nombreEnfants + ", netImposable="
-				+ netImposable + ", cluster=" + cluster + ", montantIR=" + montantIR + ", codesRev=" + codesRev + "]";
+				+ ", situationFamiliale=" + situationFamiliale + ", nombreEnfants=" + nombreEnfants + ", salaire="
+				+ salaire + ", salaireConjoint=" + salaireConjoint + ", salaires=" + salaires + ", cluster=" + cluster
+				+ ", montantIR=" + montantIR + ", distance=" + distance + ", codesRev=" + codesRev + "]";
 	}
 
 }
