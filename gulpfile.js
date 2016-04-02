@@ -9,10 +9,12 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./src/main/webapp/css'))
 });
 
-
+ 
 gulp.task('sass:watch', function () {
   gulp.watch('./assets/sass/**/*.scss', ['sass']);
 });
 
 
-gulp.task('default', ['sass', 'sass:watch',])
+	});
+
+gulp.task('default', ['sass', 'sass:watch'])
