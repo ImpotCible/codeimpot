@@ -1,3 +1,9 @@
+app.filter('unsafe', function($sce) {
+	return function(val) {
+		return $sce.trustAsHtml(val);
+	}
+});
+
 app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchorSmoothScroll) {
 
 	var updateViewCodes = function() {
@@ -11,60 +17,64 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 		};
 	}
 	
+	$scope.messages = [];
+
 	$scope.declarant = {
-		dateNaissance : 1970,
-		situationFamiliale : "M",
-		nombreEnfants: 2,
-		salaire : 20000,
-		salaireConjoint : 25000,
-		codesRev : []
+			dateNaissance : 1970,
+			situationFamiliale : "M",
+			nombreEnfants: 2,
+			salaire : 20000,
+			salaireConjoint : 25000,
+			codesRev : []
 	};
 	/*
 	'1AJ' : 20000,
 	'0DA' : 1970,
 	'0CF' : 1,*/
-	
+
 	// Par défaut, afficher uniquement les différences dans la fenêtre modale
 	$scope.differenceSeulement = true;
+	
+	$scope.informationCode = {};
 
 	$scope.proches = null;
 
 	$scope.file = null;
 
 	$scope.graphe = 'forcelayout';
-	
+
 	$scope.declarationType = 'textuel';
 
 	// Map codeRev -> libellé
 	$scope.referenceCodes = null;
-	
+
 	// Individu à comparer avec moi
 	$scope.individuCompare = null;
-	
+
 	$scope.$watch('file', function () {
 		if($scope.file != null) {
 			$scope.upload($scope.file);
 		}
 	});
-	
+
 	$scope.$watch('declarant.dateNaissance', function() {
 		$scope.setCodeRevenu('0DA', $scope.declarant.dateNaissance);
 	});
-	
+
 	$scope.$watch('declarant.situationFamiliale', function() {
-        
-        $scope.deleteCodeRevenu('0AC');
-        $scope.deleteCodeRevenu('0AD');
-        $scope.deleteCodeRevenu('0AM');
-        
-    	$scope.setCodeRevenu('0A' + $scope.declarant.situationFamiliale, 1);
-        
+
+		$scope.deleteCodeRevenu('0AC');
+		$scope.deleteCodeRevenu('0AD');
+		$scope.deleteCodeRevenu('0AM');
+
+		$scope.setCodeRevenu('0A' + $scope.declarant.situationFamiliale, 1);
+
 	});
-	
+
 	$scope.$watch('declarant.nombreEnfants', function() {
 		$scope.setCodeRevenu('0CF', $scope.declarant.nombreEnfants);
 	});
-	
+
 	$scope.$watch('declarant.salaire', function() {
 		$scope.setCodeRevenu('1AJ', $scope.declarant.salaire);
 	});
@@ -72,7 +82,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 	$scope.$watch('declarant.salaireConjoint', function() {
 		$scope.setCodeRevenu('1BJ', $scope.declarant.salaireConjoint);
 	});
-	
+
 	$scope.setIndividuCompare = function(d) {
 		$scope.individuCompare = d;
 
@@ -99,29 +109,46 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 				comparaison[codeRev.code] = {'code' : codeRev.code, 'moi': null, 'lui':codeRev.valeur, identique:false};
 			}
 		}
-		
+
 		$scope.comparaison = comparaison;
-		
+
 		if($scope.individuCompare != null) {
 			$('.js-comparaison-coderev').modal('show');
 		}
+	}
+	
+	$scope.descriptionCode = function(code) {
+		console.log('YO');
+		if($scope.messages[code] !== undefined) {
+			$scope.informationCode = $scope.messages[code];
+			$('.js-comparaison-coderev').modal('hide');
+			$('.modal-info-code').modal('show').on('hidden.bs.modal', function () {
+				$('.js-comparaison-coderev').modal('show');
+			});
+		}
+
+		console.log('YO')
 	}
 
 	$http.get("api/admin/codes").success(function(data, status) {
 		$scope.referenceCodes = data;
 	});
 
+	$http.get('data/infosCodesImpot.json').success(function(data, status) {
+		$scope.messages = data;
+	});
+
 	$scope.getProches = function() {
-    	var data = angular.toJson($scope.declarant);
+		var data = angular.toJson($scope.declarant);
 		$http.post("api/declarant/proches", data).success(function(data, status) {
 			$scope.declarant = data.declarant;
 			$scope.proches = data.proches;
 			setTimeout(function () {
 				anchorSmoothScroll.scrollTo('scrollTarget')
-		        }, 100);
-			
+			}, 100);
+
 		});
-		
+
 	};
 
 	$scope.upload = function(file) {
@@ -145,11 +172,11 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 	$scope.setGraphe = function(graph) {
 		$scope.graphe = graph;
 	}
-	
+
 	$scope.setDeclarationType = function(type) {
 		$scope.declarationType = type;
 	}
-	
+
 	/**
 	 * Ajoute un code de revenu utilisateur. Si il existe déjà ce
 	 * code, alors il est en premier lieu supprimé puis ajouté
@@ -160,18 +187,18 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 	 */
 	$scope.setCodeRevenu = function(code, valeur) {
 		$scope.deleteCodeRevenu(code);
-		
+
 		$scope.declarant.codesRev.push({
 			"code" : code, 
 			"valeur" : valeur, 
 			"libelle" : ($scope.referenceCodes != null && $scope.referenceCodes[code] !== undefined) 
-							? $scope.referenceCodes[code] 
-							: ""
+			? $scope.referenceCodes[code] 
+		: ""
 		});
-		
+
 		updateViewCodes();
 	}
-	
+
 	$scope.deleteCodeRevenu = function(code) {
 		for(var i in $scope.declarant.codesRev) {
 			if(code == $scope.declarant.codesRev[i].code) {
@@ -181,7 +208,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 		}
 	}
 
-	// Prend en entrée le contenu de la zone de texte et génère un tableau de codeRev
+//	Prend en entrée le contenu de la zone de texte et génère un tableau de codeRev
 	$scope.updateCodeRevenus = function(codes) {
 		console.debug(codes);
 		var codesRev = codes.split("#");
