@@ -21,21 +21,22 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class DatabaseCredentials {
 
 	public static DatabaseCredentials getCredentials() {
-		String envServices = "D:/Profiles/vnhim/git//impotCible/codeimpots/target/classes/config/dev.json";
+		String envServices = System.getenv("VCAP_SERVICES");
 
-		
-		String envServicesFile = "D:/Profiles/vnhim/git/codeimpots/target/classes/config/dev.json";
-		if (envServicesFile == null) {
-			throw new RuntimeException("La variable d'environnement VCAP_SERVICES_FILE doit être définie");
-		}
-		File fichierLocal = new File(envServicesFile);
-		if (!fichierLocal.exists()) {
-			throw new RuntimeException("Impossible de trouver le fichier " + envServicesFile);
-		}
-		try {
-			envServices = FileUtils.readFileToString(fichierLocal);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (envServices == null) {
+			String envServicesFile = System.getenv("VCAP_SERVICES_FILE");
+			if (envServicesFile == null) {
+				throw new RuntimeException("La variable d'environnement VCAP_SERVICES_FILE doit être définie");
+			}
+			File fichierLocal = new File(envServicesFile);
+			if (!fichierLocal.exists()) {
+				throw new RuntimeException("Impossible de trouver le fichier " + envServicesFile);
+			}
+			try {
+				envServices = FileUtils.readFileToString(fichierLocal);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		JSONParser parser = new JSONParser();
 
