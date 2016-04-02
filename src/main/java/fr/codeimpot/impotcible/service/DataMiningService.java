@@ -173,7 +173,6 @@ public class DataMiningService implements InitializingBean{
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		System.out.println("YAHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 		if(instances == null){
 			calculerCluster(100);
 			InstanceQuery query = new InstanceQuery();
@@ -185,7 +184,6 @@ public class DataMiningService implements InitializingBean{
 
 			instances = query.retrieveInstances();
 			buildSimpleKMeans(100);
-			System.out.println("RECALCUL OK ");
 		}
 		
 	}

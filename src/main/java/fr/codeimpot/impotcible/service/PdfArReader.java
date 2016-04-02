@@ -64,29 +64,5 @@ public class PdfArReader {
 		return resMap;
 	}
 
-	public static void main(String[] args) {
-		try {
-			File fic = new File("ar.pdf");
-			PdfArReader reader = new PdfArReader();
-			reader.beginString = "Code Revenu Libell� Valeur";
-			reader.endString = "DISCORDANCES � V�RIFIER";
-			reader.arKeyPattern = "\\d\\s(\\w)*\\b";
-			reader.arValuePattern = "(\\d)*$";
-			Map<String, String> res = reader.convertARToKeyMap(fic);
-			for (String key : res.keySet()) {
-				System.out.println("Cl� " + key + " valeur " + res.get(key));
-			}
-
-			// PDDocument pddDocument=PDDocument.load(fic);
-			// PDFTextStripper stripper = new PDFTextStripper();
-			// String contenu = stripper.getText(pddDocument);
-			// System.out.println(contenu);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 }
