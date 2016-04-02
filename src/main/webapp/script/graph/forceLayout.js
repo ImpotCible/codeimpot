@@ -29,7 +29,7 @@ app.directive('forceLayout', function() {
 				var moi = {					
 					"montantIR" : scope.declarant.montantIR,
 					"rayon" : 50,
-					"color" : "#0275d8",
+					"color" : "#4C0099",
 					"root" : true,
 				};
 				dataset["nodes"].push(moi);
