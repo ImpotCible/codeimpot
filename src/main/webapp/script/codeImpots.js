@@ -132,13 +132,9 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 				}
 			}).then(function (resp) {
 				$timeout(function() {
-					$scope.declarant.codesRev = new Array();
+					$scope.declarant.codesRev = [];
 					for(var code in resp.data) {
-						$scope.declarant.codesRev.push({
-							'code'    : code,
-							'libelle' : $scope.referenceCodes[code],
-							'valeur'  : resp.data[code]
-						});
+						$scope.setCodeRevenu(code, resp.data[code]);
 					}
 				});
 			}, null, function (evt) {
@@ -194,7 +190,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 			console.debug(codeRev);			
 			var code = codeRev.substring(0, 3);
 			var valeur = codeRev.substring(3, codeRev.length);
-			$scope.setCodeRevenu(cde, valeur);
+			$scope.setCodeRevenu(code, valeur);
 		}
 	};    
 

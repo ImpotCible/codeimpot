@@ -52,6 +52,10 @@ Exemple de payload :
 
 	{"dateNaissance":1975,"codePostal":75017,"situationFamiliale":"M","nombreEnfants":"3","netImposable":"15000"}
 
+## Générateur de données
+
+	http://home.rapsspider.fr:8080/Hackathon/JAVA_donnees_aleatoires
+
 ## Membres de l'équipe
 
 Yann GLORIAU
