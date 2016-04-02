@@ -55,25 +55,13 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	});
 	
 	$scope.$watch('declarant.situationFamiliale', function() {
-        var C = "";
-        var D = "";
-        var M = "";
         
-        switch($scope.declarant.situationFamiliale) {
-        case 'C':
-        	C = 1;
-        	break;
-        case 'D':
-        	C = 1;
-        	break;
-        case 'M':
-        	C = 1;
-        	break;
-        }
+        $scope.deleteCodeRevenu('0AC');
+        $scope.deleteCodeRevenu('0AD');
+        $scope.deleteCodeRevenu('0AM');
         
-		$scope.setCodeRevenu('0AC', C);
-		$scope.setCodeRevenu('0AD', D);
-		$scope.setCodeRevenu('0AM', M);
+    	$scope.setCodeRevenu('0A' + $scope.declarant.situationFamiliale, 1);
+        
 	});
 	
 	$scope.$watch('declarant.nombreEnfants', function() {
@@ -175,12 +163,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	 * @param La valeur associé au code à ajouter.
 	 */
 	$scope.setCodeRevenu = function(code, valeur) {
-		for(var i in $scope.declarant.codesRev) {
-			if(code == $scope.declarant.codesRev[i].code) {
-				$scope.declarant.codesRev.splice(i, 1);
-				break;
-			}
-		}
+		$scope.deleteCodeRevenu(code);
 		
 		$scope.declarant.codesRev.push({
 			"code" : code, 
@@ -191,6 +174,15 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		});
 		
 		updateViewCodes();
+	}
+	
+	$scope.deleteCodeRevenu = function(code) {
+		for(var i in $scope.declarant.codesRev) {
+			if(code == $scope.declarant.codesRev[i].code) {
+				$scope.declarant.codesRev.splice(i, 1);
+				break;
+			}
+		}
 	}
 
 	// Prend en entrée le contenu de la zone de texte et génère un tableau de codeRev
