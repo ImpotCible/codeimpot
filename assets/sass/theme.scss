@@ -1,11 +1,14 @@
 $headerColor: #fff;
+$color1: #4C0099;
+$color2: #0080FF;
 
 @import "custom/graphiques";
 @import "custom/declaration";
+@import "custom/footer";
 
 header {
   height : 50px;
-  background-color: #330066;
+  background-color: darken($color1, 15%);
   color: $headerColor;
 
   h1 {

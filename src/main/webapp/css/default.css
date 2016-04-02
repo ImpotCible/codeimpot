@@ -4637,9 +4637,16 @@ a.bg-danger:focus, a.bg-danger:hover {
 .tab-content {
   margin-top: 20px; }
 
+footer {
+  display: none;
+  width: 100%;
+  padding: 10px 5px 10px 5px; }
+  footer .hackathon {
+    float: right; }
+
 header {
   height: 50px;
-  background-color: #330066;
+  background-color: #26004d;
   color: #fff; }
   header h1 {
     padding-top: 10px;
