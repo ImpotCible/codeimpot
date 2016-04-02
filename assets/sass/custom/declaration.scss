@@ -2,3 +2,44 @@
 .tab-content {
     margin-top: 20px;
 }
+
+div#declarant{
+
+	ul.nav-tabs {
+
+		li a{
+	
+		}
+	
+	}
+	input,select{
+		color:#0080FF;
+	}
+	div.tab-pane{
+		background: #FFF;
+		padding: 50px 300px 50px 80px;
+		position:relative
+		
+		
+	}
+	
+	button{
+			position:absolute;
+			right:40px;
+			top:100px; 
+			width:200px;
+			height:80px;
+			border-radius: 0.30rem;
+			font-size:2rem;
+			background-color:#4C0099;
+			
+			
+	}
+	button:hover {
+			  background-color:#6600CC;
+		      border-bottom-color: darken($headerColor, 25%);
+		    }
+	textarea{
+		height:200px;
+	}
+}
