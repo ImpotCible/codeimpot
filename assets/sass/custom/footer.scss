@@ -1,11 +1,8 @@
 footer {
- display:none;
- background-color:#000;
- color:#FFF;
+  margin: 0px;
+  background-color: darken($color1, 15%);
+  color:#FFF;
   width: 100%;
-  padding: 10px 5px 10px 5px;
-  
-  .hackathon {
-      float: right;
-  }
+  padding: 5px 10px;
+  text-align: right;
 }
