@@ -1,4 +1,4 @@
-app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
+app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchorSmoothScroll) {
 
 	$scope.declarant = {
 		dateNaissance : 1970,
@@ -80,7 +80,12 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		$http.post("api/declarant/proches", data).success(function(data, status) {
 			$scope.declarant = data.declarant;
 			$scope.proches = data.proches;
+			setTimeout(function () {
+				anchorSmoothScroll.scrollTo('graph-forcelayout')
+		        }, 200);
+			
 		});
+		
 	};
 
 	$scope.upload = function(file) {

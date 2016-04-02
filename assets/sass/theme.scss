@@ -4,20 +4,22 @@ $headerColor: #fff;
 @import "custom/declaration";
 
 header {
-  height : 65px;
-  background-color: #000;
+  height : 50px;
+  background-color: #330066;
   color: $headerColor;
 
   h1 {
     padding-top: 10px;
+    color: $headerColor;
     float: left;
+    font-size: 2rem;
   }
   
   nav {
     float: right;
     
     a {
-	  padding: 20px 20px 17px 20px;
+	  padding: 14px 20px 8px 20px;
 	  text-align: center;
 	  min-width: 100px;
 	  font-weight: bold;
@@ -42,6 +44,14 @@ header {
 	}
   }
 }
+div.Logo_container{
+
+	img{
+	margin-left:-200px;
+		height:200px;
+	}
+}
+
 
 .section {
   vertical-align: middle;
@@ -54,6 +64,62 @@ header {
   &:nth-child(even) {
     background: rgba(221,221,221,0.25);
   }
+}
+div.graph_container{
+  vertical-align: middle;
+  min-height: 400px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+
+	background: #FFF;
+}
+h1, h2, h3, h4{
+	color:#4C0099;
+	  padding-top: 5px;
+  	padding-bottom: 5px;
+}
+
+div#declarant{
+
+	ul.nav-tabs {
+
+		li a{
+	
+		}
+	
+	}
+	input,select{
+		color:#0080FF;
+	}
+	div.tab-pane{
+		background: #FFF;
+		padding: 50px 300px 50px 80px;
+		position:relative
+		
+		
+	}
+	
+	button{
+			position:absolute;
+			right:40px;
+			top:100px; 
+			width:200px;
+			height:80px;
+			border-radius: 0.30rem;
+			font-size:2rem;
+			background-color:#4C0099;
+			
+			
+	}
+	button:hover {
+			  background-color:#6600CC;
+		      border-bottom-color: darken($headerColor, 25%);
+		    }
+	textarea{
+		height:200px;
+	}
 }
 
 body {
