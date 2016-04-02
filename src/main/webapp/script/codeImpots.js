@@ -51,7 +51,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	});
 	
 	$scope.$watch('declarant.dateNaissance', function() {
-		$scope.setCodeRevenu('ODA', $scope.declarant.dateNaissance);
+		$scope.setCodeRevenu('0DA', $scope.declarant.dateNaissance);
 	});
 	
 	$scope.$watch('declarant.situationFamiliale', function() {
@@ -65,7 +65,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	});
 	
 	$scope.$watch('declarant.nombreEnfants', function() {
-		$scope.setCodeRevenu('OCF', $scope.declarant.nombreEnfants);
+		$scope.setCodeRevenu('0CF', $scope.declarant.nombreEnfants);
 	});
 	
 	$scope.$watch('declarant.netImposable', function() {
@@ -136,13 +136,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 						$scope.setCodeRevenu(code, resp.data[code]);
 					}
 				});
-			}, null, function (evt) {
-				var progressPercentage = parseInt(100.0 *
-						evt.loaded / evt.total);
-				$scope.log = 'progress: ' + progressPercentage + 
-				'% ' + evt.config.data.file.name + '\n' + 
-				$scope.log;
-			});
+			}, null, function (evt) {});
 		}
 	}
 
