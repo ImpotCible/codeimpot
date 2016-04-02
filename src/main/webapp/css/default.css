@@ -4658,12 +4658,13 @@ div#declarant div.tab-pane {
 div#declarant button {
   position: absolute;
   right: 40px;
-  top: 100px;
+  top: 70px;
   width: 200px;
   height: 80px;
   border-radius: 0.30rem;
   font-size: 2rem;
-  background-color: #4C0099; }
+  background-color: #4C0099;
+  color: #FFF; }
 
 div#declarant button:hover {
   background-color: #6600CC;
@@ -4671,6 +4672,10 @@ div#declarant button:hover {
 
 div#declarant textarea {
   height: 200px; }
+
+div#declarant div.panel-heading button {
+  top: 30px;
+  border-radius: 0.30rem; }
 
 header {
   height: 50px;

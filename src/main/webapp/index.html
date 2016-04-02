@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="css/default.css" />
 	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<link rel="icon" type="image/png" href="img/favicon.ico" />
 	
 	<script src="script/modernizr.custom.js"></script>
 
@@ -115,17 +116,13 @@
 						<button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches();">Calculer!</button>
 					</div>
 				</div>
-				<div class="tab-pane" ng-show="declarant.montantIR">
+				<div class="tab-pane tab-pane2" ng-show="declarant.montantIR" id="scrollTarget">
 					<h4>Votre imposition sur le revenu : {{declarant.montantIR}}</h4>
 					
 					<div class="panel-group" id="accordion">
 				        <div class="panel panel-primary">
 				            <div class="panel-heading">
-				                <h4 class="panel-title">
-				                    <a >Voir le détail</a>
-				                </h4>
-				                <button data-toggle="collapse" data-parent="#accordion" href="#collapseOne">zfzefze</button>
-				                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				                <button data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Voir le détail</button>
 				            </div>
 				            <div id="collapseOne" class="panel-collapse collapse">
 				                <div class="panel-body">
@@ -178,7 +175,7 @@
 					<div class="col-sm-7 col-md-8 col-lg-9" force-layout>
 					</div>
 					<!-- Détail du déclarant proche dans un caddre sur la droite -->
-					<div class="col-sm-5 col-md-4 col-lg-3">
+					<div class="col-sm-5 col-md-4 col-lg-3" >
 						<div class="card card-block">
 						  <!-- Default panel contents -->
 						  <div class="card-title"><h3>Détails sur le déclarant</h3></div>
