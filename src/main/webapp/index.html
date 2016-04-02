@@ -71,7 +71,7 @@
             <div class="container">
 	            <ul class="nav nav-tabs">
 				    <li class="nav-item">
-				        <a ng-class="{active: graphe=='textuel'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('textuel')">Textuelle</a>
+				        <a ng-class="{active: graphe=='textuel'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('textuel')">Textuel</a>
 				    </li>
 				    <li class="nav-item">
 				        <a ng-class="{active: graphe=='codes'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('codes')">Codes</a>
@@ -115,7 +115,9 @@
 						<button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches();">Calculer!</button>
 					</div>
 				</div>
-				<h4 ng-show="declarant.montantIR">Vote imposition sur le revenu : {{declarant.montantIR}}</h4>
+				<div class="">
+				<h4 ng-show="declarant.montantIR">Vôtre imposition sur le revenu : {{declarant.montantIR}}</h4>
+				</div>
 			</div>
 		</div>
 
@@ -144,14 +146,14 @@
 
 		<!-- Affiche du graphe force-layout -->
         <div class="graph_container" id="graphiques" ng-show="proches.length">
-            <ul class="nav nav-tabs">
-			    <li class="nav-item">
-			        <a ng-class="{active: graphe=='forcelayout'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('forcelayout')">Force et distance</a>
-			    </li>
-			    <li class="nav-item">
-			        <a ng-class="{active: graphe=='tilfordtree'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('tilfordtree')">Arbre</a>
-			    </li>
-			</ul>
+<!--             <ul class="nav nav-tabs"> -->
+<!-- 			    <li class="nav-item"> -->
+<!-- 			        <a ng-class="{active: graphe=='forcelayout'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('forcelayout')">Force et distance</a> -->
+<!-- 			    </li> -->
+<!-- 			    <li class="nav-item"> -->
+<!-- 			        <a ng-class="{active: graphe=='tilfordtree'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('tilfordtree')">Arbre</a> -->
+<!-- 			    </li> -->
+<!-- 			</ul> -->
             <div id="graph-forcelayout" ng-if="graphe=='forcelayout'">
 			    <div class="row">
 					<!-- Graphe sur la gauche -->
@@ -172,22 +174,7 @@
 						    <p>Montant IR = {{proche.montantIR}}</p>
 						  </div>		
 						</div>
-						<!-- Détail du déclarant proche dans un caddre sur la droite -->
-						<div class="col-sm-5 col-md-4 col-lg-3">
-							<div class="card card-block">
-							  <!-- Default panel contents -->
-							  <div class="card-title"><h3>Détails sur le déclarant</h3></div>
-							  <!-- TODO à compléter -->
-							  <div class="card-text">					    
-							    <p>Distance : {{proche.distance}}</p>
-							    <p>Année de naissance : {{proche.dateNaissance}}</p>
-							    <p>Situation familialee : {{proche.situationFamiliale}}</p>
-							    <p>Nombre d'enfants : {{proche.nombreEnfants}}</p>
-							    <p>Revenu net imposable : {{proche.netImposable}}</p>
-							    <p>Montant IR = {{proche.montantIR}}</p>
-							  </div>		
-							</div>
-						</div>
+						
 					</div>
 				</div>
 				<div id="graph-tilfordtree" class="container" ng-if="graphe=='tilfordtree'">
