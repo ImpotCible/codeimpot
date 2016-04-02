@@ -30,7 +30,6 @@ public class ArFileUploadService {
 	@Path("/arpdf")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Map<String, String> postFile(@Multipart( type = "application/*", required = false) Attachment file){
-		System.out.println("Yaooooo "+file);
 		try {
 			File fic  =File.createTempFile("upload", "arpdf");
 			file.transferTo(fic);
