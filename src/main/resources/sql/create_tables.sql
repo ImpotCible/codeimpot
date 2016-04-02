@@ -6,7 +6,7 @@ CREATE TABLE declarants (
     code_postal integer,
     sit_fam character varying(1),
     nombre_enfants smallint,
-    net_imposable integer,
+    salaires integer,
     codes_revenu character varying(1000),
     montant_ir integer,
     cluster smallint

@@ -22,7 +22,7 @@ public class DeclarantRowMapper implements RowMapper<Declarant> {
 		declarant.setCodePostal(rs.getInt("code_postal"));
 		declarant.setSituationFamiliale(rs.getString("sit_fam"));
 		declarant.setNombreEnfants(rs.getInt("nombre_enfants"));
-		declarant.setNetImposable(rs.getInt("net_imposable"));
+		declarant.setSalaires(rs.getInt("salaires"));
 		declarant.setCluster(rs.getInt("cluster"));
 		declarant.setMontantIR(rs.getInt("montant_ir"));
 		List<CodeRevenu> codesRev = new ArrayList<CodeRevenu>();

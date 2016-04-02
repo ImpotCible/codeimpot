@@ -15,8 +15,9 @@ public class Declarant {
 	private int codePostal;
 	private String situationFamiliale;
 	private int nombreEnfants;
-	private int netImposable;
+	private int salaires;
 	private int cluster;
+
 	private int montantIR;
 	private double distance;
 
@@ -62,14 +63,6 @@ public class Declarant {
 		this.nombreEnfants = nombreEnfants;
 	}
 
-	public int getNetImposable() {
-		return netImposable;
-	}
-
-	public void setNetImposable(int netImposable) {
-		this.netImposable = netImposable;
-	}
-
 	public List<CodeRevenu> getCodesRev() {
 		return codesRev;
 	}
@@ -102,11 +95,12 @@ public class Declarant {
 		this.distance = distance;
 	}
 
-	@Override
-	public String toString() {
-		return "Declarant [id=" + id + ", dateNaissance=" + dateNaissance + ", codePostal=" + codePostal
-				+ ", situationFamiliale=" + situationFamiliale + ", nombreEnfants=" + nombreEnfants + ", netImposable="
-				+ netImposable + ", cluster=" + cluster + ", montantIR=" + montantIR + ", codesRev=" + codesRev + "]";
+	public int getSalaires() {
+		return salaires;
+	}
+
+	public void setSalaires(int salaires) {
+		this.salaires = salaires;
 	}
 
 }
