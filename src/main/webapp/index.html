@@ -115,32 +115,49 @@
 						<button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches();">Calculer!</button>
 					</div>
 				</div>
-				<div class="">
-				<h4 ng-show="declarant.montantIR">Vôtre imposition sur le revenu : {{declarant.montantIR}}</h4>
+				<div class="tab-pane" ng-show="declarant.montantIR">
+					<h4>Votre imposition sur le revenu : {{declarant.montantIR}}</h4>
+					
+					<div class="panel-group" id="accordion">
+				        <div class="panel panel-primary">
+				            <div class="panel-heading">
+				                <h4 class="panel-title">
+				                    <a >Voir le détail</a>
+				                </h4>
+				                <button data-toggle="collapse" data-parent="#accordion" href="#collapseOne">zfzefze</button>
+				            </div>
+				            <div id="collapseOne" class="panel-collapse collapse">
+				                <div class="panel-body">
+									<div class="section" ng-show="declarant.codesRev.length">
+										<div class="container">
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th>Code</th>
+														<th>Libellé</th>
+														<th>Valeur</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="codeRev in declarant.codesRev | orderBy:'+code'">
+														<td>{{codeRev.code}}</td>
+														<td>{{codeRev.libelle}}</td>
+														<td>{{codeRev.valeur}}</td>						
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>			
+				                </div>
+				            </div>
+				        </div>
+
+				    </div>
 				</div>
 			</div>
 		</div>
 
-        <div class="section" ng-show="declarant.codesRev.length">
-			<div class="container">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Code</th>
-							<th>Libellé</th>
-							<th>Valeur</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="codeRev in declarant.codesRev | orderBy:'+code'">
-							<td>{{codeRev.code}}</td>
-							<td>{{codeRev.libelle}}</td>
-							<td>{{codeRev.valeur}}</td>						
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+        
 		
 		<!-- TODO mécanisme d'onglets pour afficher les différents graphes -->
 
