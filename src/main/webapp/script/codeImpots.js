@@ -4,7 +4,9 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		dateNaissance : 1970,
 		situationFamiliale : "M",
 		nombreEnfants: 2,
-		netImposable : 20000
+		netImposable : 20000,
+		netImposableConjoint : 25000,
+		codesRev : []
 	};
 	/*
 	'1AJ' : 20000,
@@ -35,6 +37,44 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		if($scope.file != null) {
 			$scope.upload($scope.file);
 		}
+	});
+	
+	$scope.$watch('declarant.dateNaissance', function() {
+		$scope.setCodeRevenu('ODA', $scope.declarant.dateNaissance);
+	});
+	
+	$scope.$watch('declarant.situationFamiliale', function() {
+        var C = "";
+        var D = "";
+        var M = "";
+        
+        switch($scope.declarant.situationFamiliale) {
+        case 'C':
+        	C = '1';
+        	break;
+        case 'D':
+        	C = '1';
+        	break;
+        case 'M':
+        	C = '1';
+        	break;
+        }
+        
+		$scope.setCodeRevenu('0AC', C);
+		$scope.setCodeRevenu('0AD', D);
+		$scope.setCodeRevenu('0AM', M);
+	});
+	
+	$scope.$watch('declarant.nombreEnfants', function() {
+		$scope.setCodeRevenu('OCF', $scope.declarant.nombreEnfants);
+	});
+	
+	$scope.$watch('declarant.netImposable', function() {
+		$scope.setCodeRevenu('1AJ', $scope.declarant.netImposable);
+	});
+
+	$scope.$watch('declarant.netImposableConjoint', function() {
+		$scope.setCodeRevenu('1BJ', $scope.declarant.netImposableConjoint);
 	});
 	
 	$scope.setIndividuCompare = function(d) {
@@ -118,6 +158,31 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	$scope.setDeclarationType = function(type) {
 		$scope.declarationType = type;
 	}
+	
+	/**
+	 * Ajoute un code de revenu utilisateur. Si il existe déjà ce
+	 * code, alors il est en premier lieu supprimé puis ajouté
+	 * avec la nouvelle valeur.
+	 * 
+	 * @param Le code à ajouter
+	 * @param La valeur associé au code à ajouter.
+	 */
+	$scope.setCodeRevenu = function(code, valeur) {
+		for(var i in $scope.declarant.codesRev) {
+			if(code == $scope.declarant.codesRev[i].code) {
+				delete $scope.declarant.codesRev[i];
+				break;
+			}
+		}
+		
+		$scope.declarant.codesRev.push({
+			"code" : code, 
+			"valeur" : valeur, 
+			"libelle" : ($scope.referenceCodes != null && $scope.referenceCodes[code] !== undefined) 
+							? $scope.referenceCodes[code] 
+							: ""
+		});
+	}
 
 	// Prend en entrée le contenu de la zone de texte et génère un tableau de codeRev
 	$scope.updateCodeRevenus = function(codes) {
@@ -129,10 +194,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 			console.debug(codeRev);			
 			var code = codeRev.substring(0, 3);
 			var valeur = codeRev.substring(3, codeRev.length);
-			var label = $scope.referenceCodes[code];			
-			var codeRevenu = {"code" : code, "valeur" : valeur, "libelle" : label}
-			console.log(codeRevenu)
-			$scope.declarant.codesRev.push(codeRevenu);
+			$scope.setCodeRevenu(cde, valeur);
 		}
 	};    
 
