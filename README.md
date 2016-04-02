@@ -68,7 +68,8 @@ Exemple de payload :
 	Tiffany HAUMEY
 	Teo ROBERJOT
 	Benjamin JEAN
+	Clement DORNIER
 	
 ## Forum
 
-	[Projet Comparimpots](https://forum.openfisca.fr/t/projet-comparimpots/134)
+[Projet Comparimpots](https://forum.openfisca.fr/t/projet-comparimpots/134)
