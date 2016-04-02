@@ -89,12 +89,12 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		}
 		// Compléter la map avec la valeur de l'individu comparé
 		for(var i in $scope.individuCompare.codesRev) {
-			var codeRev = $scope.individuCompare.codesRev;
-			if (codeRev.code in comparaison) {
+			var codeRev = $scope.individuCompare.codesRev[i];
+			if (comparaison.hasOwnProperty(codeRev.code)) {
 				// Mise à jour du code dans la map
 				console.log("Mise à jour du code revenu " + angular.toJson(codeRev));
-				codeExistant = comparaison[codeRev.code];				
-				comparaison[codeRev.code] = {'code' : codeRev.code, 'moi':codeExistant.valeur, 'lui':codeRev.valeur, identique:(codeRev.valeur == codeExistant.valeur)};
+				codeExistant = comparaison[codeRev.code];
+				comparaison[codeRev.code] = {'code' : codeRev.code, 'moi': codeExistant.moi, 'lui':codeRev.valeur, identique:(codeRev.valeur == codeExistant.valeur)};
 			}
 			else {
 				console.log("Ajout du code revenu pour 'lui'" + angular.toJson(codeRev));
