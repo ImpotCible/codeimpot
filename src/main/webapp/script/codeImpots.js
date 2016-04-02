@@ -1,5 +1,16 @@
 app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 
+	var updateViewCodes = function() {
+		if($scope.declarationType != 'codes') {
+			$scope.codes = "";
+			for(var i in $scope.declarant.codesRev) {
+				if($scope.declarant.codesRev[i].valeur != null && $scope.declarant.codesRev[i].valeur != "") {
+					$scope.codes = $scope.codes + $scope.declarant.codesRev[i].code + $scope.declarant.codesRev[i].valeur + '#';
+				}
+			}
+		};
+	}
+	
 	$scope.declarant = {
 		dateNaissance : 1970,
 		situationFamiliale : "M",
@@ -22,7 +33,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 
 	$scope.graphe = 'forcelayout';
 	
-	$scope.declarationType = 'textuelle';
+	$scope.declarationType = 'textuel';
 
 	// Map codeRev -> libellé
 	$scope.referenceCodes = null;
@@ -50,13 +61,13 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
         
         switch($scope.declarant.situationFamiliale) {
         case 'C':
-        	C = '1';
+        	C = 1;
         	break;
         case 'D':
-        	C = '1';
+        	C = 1;
         	break;
         case 'M':
-        	C = '1';
+        	C = 1;
         	break;
         }
         
@@ -166,7 +177,7 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	$scope.setCodeRevenu = function(code, valeur) {
 		for(var i in $scope.declarant.codesRev) {
 			if(code == $scope.declarant.codesRev[i].code) {
-				delete $scope.declarant.codesRev[i];
+				$scope.declarant.codesRev.splice(i, 1);
 				break;
 			}
 		}
@@ -178,6 +189,8 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 							? $scope.referenceCodes[code] 
 							: ""
 		});
+		
+		updateViewCodes();
 	}
 
 	// Prend en entrée le contenu de la zone de texte et génère un tableau de codeRev
