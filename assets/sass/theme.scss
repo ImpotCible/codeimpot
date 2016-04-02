@@ -8,7 +8,7 @@ $color2: #0080FF;
 
 header {
   height : 50px;
-  background-color: darken($color1, 15%);
+  background-color: #FFF;
   color: $headerColor;
 
   h1 {
@@ -27,7 +27,7 @@ header {
 	  min-width: 100px;
 	  font-weight: bold;
 	  display: block;
-	  color: darken($headerColor, 0%);
+	  color: #4C0099;
 	  background-color: transparent;
 	  border-bottom: .25rem solid transparent;
 	}
@@ -42,7 +42,7 @@ header {
 	}
 
 	a.active {
-	  color: darken($headerColor, 10%);
+	  color: #4C0099;
 	  border-bottom-color: darken($headerColor, 10%);
 	}
   }

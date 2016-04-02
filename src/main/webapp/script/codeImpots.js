@@ -117,8 +117,8 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload, anchor
 			$scope.declarant = data.declarant;
 			$scope.proches = data.proches;
 			setTimeout(function () {
-				anchorSmoothScroll.scrollTo('graph-forcelayout')
-		        }, 200);
+				anchorSmoothScroll.scrollTo('scrollTarget')
+		        }, 100);
 			
 		});
 		

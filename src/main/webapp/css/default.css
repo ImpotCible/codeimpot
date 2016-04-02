@@ -4658,12 +4658,13 @@ div#declarant div.tab-pane {
 div#declarant button {
   position: absolute;
   right: 40px;
-  top: 100px;
+  top: 70px;
   width: 200px;
   height: 80px;
   border-radius: 0.30rem;
   font-size: 2rem;
-  background-color: #4C0099; }
+  background-color: #4C0099;
+  color: #FFF; }
 
 div#declarant button:hover {
   background-color: #6600CC;
@@ -4672,9 +4673,22 @@ div#declarant button:hover {
 div#declarant textarea {
   height: 200px; }
 
+div#declarant div.panel-heading button {
+  top: 30px;
+  border-radius: 0.30rem; }
+
+footer {
+  display: none;
+  background-color: #000;
+  color: #FFF;
+  width: 100%;
+  padding: 10px 5px 10px 5px; }
+  footer .hackathon {
+    float: right; }
+
 header {
   height: 50px;
-  background-color: #26004d;
+  background-color: #FFF;
   color: #fff; }
   header h1 {
     padding-top: 10px;
@@ -4689,7 +4703,7 @@ header {
       min-width: 100px;
       font-weight: bold;
       display: block;
-      color: white;
+      color: #4C0099;
       background-color: transparent;
       border-bottom: .25rem solid transparent; }
     header nav a:hover, header nav a:focus {
@@ -4698,7 +4712,7 @@ header {
     header nav a + a {
       margin-left: 1rem; }
     header nav a.active {
-      color: #e6e6e6;
+      color: #4C0099;
       border-bottom-color: #e6e6e6; }
 
 div.Logo_container img {

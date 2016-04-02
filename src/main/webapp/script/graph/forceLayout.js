@@ -113,6 +113,7 @@ app.directive('forceLayout', function() {
 					// Définir le noeud selectionné dans le scope AngularJS
 					scope.$apply(function(){
 					   scope.proche = d;
+	
 					});					
 				})
 				.on("mouseout", function(d, i) { // En quittant le noeud, animation inverse
@@ -129,6 +130,7 @@ app.directive('forceLayout', function() {
 					// Supprimer le noeud courant du scope
 					scope.$apply(function(){
 					   scope.proche = null;
+
 					});	
 				}).on("click", function(d,i) {
 					if(!d.root) {
