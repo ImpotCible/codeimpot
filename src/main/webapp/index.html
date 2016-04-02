@@ -87,9 +87,9 @@
 								<option value="M">Marié</option>
 								<option value="D">Divorcé</option>
 							</select>, j'ai <input type="text" size="2" ng-model="declarant.nombreEnfants" class="form-control" />
-							enfant(s). Mon revenu net imposable est de <input type="text" size="12" ng-model="declarant.netImposable" class="form-control" /> 
+							enfant(s). Mon revenu net imposable est de <input type="text" size="12" ng-model="declarant.salaire" class="form-control" /> 
 							<span ng-if="declarant.situationFamiliale=='M'">et celui de mon/ma conjoint(e) est de 
-							<input type="text" size="12" ng-model="declarant.netImposableConjoint" class="form-control" /></span>.<br />
+							<input type="text" size="12" ng-model="declarant.salaireConjoint" class="form-control" /></span>.<br />
 							
 							<button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches()">Calculer!</button>
 						</div>
@@ -164,7 +164,7 @@
 						    <p>Année de naissance : {{proche.dateNaissance}}</p>
 						    <p>Situation familialee : {{proche.situationFamiliale}}</p>
 						    <p>Nombre d'enfants : {{proche.nombreEnfants}}</p>
-						    <p>Revenu net imposable : {{proche.netImposable}}</p>
+						    <p>Traitements et salaires : {{proche.salaires}}</p>
 						    <p>Montant IR = {{proche.montantIR}}</p>
 						  </div>		
 						</div>
@@ -187,7 +187,7 @@
 									<th>Année naissance</th>
 									<th>Situation familiale</th>
 									<th>Nombre enfants à charge</th>
-									<th>Revenu net imposable</th>
+									<th>Traitement et salaires</th>
 									<th>IR</th>
 									<th>Distance</th>
 								</tr>
@@ -197,7 +197,7 @@
 									<td>{{proche.dateNaissance}}</td>
 									<td>{{proche.situationFamiliale}}</td>
 									<td>{{proche.nombreEnfants}}</td>
-									<td>{{proche.netImposable}}</td>
+									<td>{{proche.salaires}}</td>
 									<td>{{proche.montantIR}}</td>
 									<td>{{proche.distance}}</td>
 								</tr>

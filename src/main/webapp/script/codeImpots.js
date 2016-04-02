@@ -4,8 +4,8 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		dateNaissance : 1970,
 		situationFamiliale : "M",
 		nombreEnfants: 2,
-		netImposable : 20000,
-		netImposableConjoint : 25000,
+		salaire : 20000,
+		salaireConjoint : 25000,
 		codesRev : []
 	};
 	/*
@@ -30,9 +30,6 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 	// Individu à comparer avec moi
 	$scope.individuCompare = null;
 	
-	// Code de revenu pouvant être comparer
-	$scope.codeCompare = ['dateNaissance','situationFamiliale','nombreEnfants','netImposable'];
-
 	$scope.$watch('file', function () {
 		if($scope.file != null) {
 			$scope.upload($scope.file);
@@ -69,12 +66,12 @@ app.controller('declarantCtlr', function($scope, $http, $timeout, Upload) {
 		$scope.setCodeRevenu('OCF', $scope.declarant.nombreEnfants);
 	});
 	
-	$scope.$watch('declarant.netImposable', function() {
-		$scope.setCodeRevenu('1AJ', $scope.declarant.netImposable);
+	$scope.$watch('declarant.salaire', function() {
+		$scope.setCodeRevenu('1AJ', $scope.declarant.salaire);
 	});
 
-	$scope.$watch('declarant.netImposableConjoint', function() {
-		$scope.setCodeRevenu('1BJ', $scope.declarant.netImposableConjoint);
+	$scope.$watch('declarant.salaireConjoint', function() {
+		$scope.setCodeRevenu('1BJ', $scope.declarant.salaireConjoint);
 	});
 	
 	$scope.setIndividuCompare = function(d) {

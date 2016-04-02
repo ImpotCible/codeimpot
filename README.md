@@ -50,7 +50,7 @@ Récupérer les individus les plus proches
 
 Exemple de payload :
 
-	{"dateNaissance":1975,"codePostal":75017,"situationFamiliale":"M","nombreEnfants":"3","netImposable":"15000"}
+	{"dateNaissance":1975,"codePostal":75017,"situationFamiliale":"M","nombreEnfants":"3","salaires":"15000"}
 
 ## Générateur de données
 

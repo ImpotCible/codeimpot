@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ import weka.experiment.InstanceQuery;
 import weka.filters.unsupervised.attribute.Remove;
 
 @Service
-public class DataMiningService implements InitializingBean {
+public class DataMiningService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataMiningService.class);
 
@@ -111,12 +110,12 @@ public class DataMiningService implements InitializingBean {
 			if (distance > distanceMax) {
 				distanceMax = distance;
 			}
-			dec.setDistance(distance);
+			dec.setDistance(new Double(distance));
 		}
 
 		// Normalisation des distances
 		for (Declarant dec : declarants) {
-			dec.setDistance(Math.round(100 * dec.getDistance() / distanceMax));
+			dec.setDistance(new Long(Math.round(100 * dec.getDistance() / distanceMax)).doubleValue());
 		}
 
 	}
@@ -169,23 +168,6 @@ public class DataMiningService implements InitializingBean {
 		clusterAlg.getDistanceFunction();
 
 		clusterer.buildClusterer(instances);
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		if (instances == null) {
-			calculerCluster(100);
-			InstanceQuery query = new InstanceQuery();
-			DatabaseCredentials cred = DatabaseCredentials.getCredentials();
-			query.setDatabaseURL(cred.getConnectionString());
-			query.setUsername(cred.getUsername());
-			query.setPassword(cred.getPassword());
-			query.setQuery("select id, date_naissance, sit_fam, nombre_enfants, salaires from declarants");
-
-			instances = query.retrieveInstances();
-			buildSimpleKMeans(100);
-		}
-
 	}
 
 }
