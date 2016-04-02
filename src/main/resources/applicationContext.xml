@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+			http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util-3.0.xsd			
+			http://www.springframework.org/schema/jdbc
+			http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<context:component-scan base-package="fr.codeimpot.impotcible" />
+
+	<context:property-placeholder location="classpath:config/appli.properties"/>
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+		</cxf:features>
+	</cxf:bus>
+
+	<bean id="dataSource" class="fr.codeimpot.impotcible.config.DatabaseCredentials"
+		factory-method="createDataSource" />
+
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:/sql/create_tables.sql" />
+		<jdbc:script location="classpath:/sql/insert_data.sql" />
+	</jdbc:initialize-database>
+
+	<jaxrs:server address="/">
+		<jaxrs:serviceBeans>
+			<bean id="declarantRestService" class="fr.codeimpot.impotcible.rest.DeclarantRestService" />
+			<bean id="administrationRestService" class="fr.codeimpot.impotcible.rest.AdministrationRestService" />
+			<bean class="fr.codeimpot.impotcible.rest.ArFileUploadService">
+				<property name="reader">
+					<bean class="fr.codeimpot.impotcible.service.PdfArReader"/>
+				</property>
+			</bean>
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+</beans>

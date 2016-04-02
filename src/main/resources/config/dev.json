@@ -1,0 +1,13 @@
+{
+   "elephantsql": [
+      {
+         "name": "pgLocal",
+         "label": "elephantsql",
+         "plan": "turtle",
+         "credentials": {
+            "uri": "postgres://postgres:admin@localhost:5432/codeimpots",
+            "max_conns": "5"
+         }
+      }
+   ]
+}

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html ng-app="codeImpots" lang="fr">
+<head>
+	<title>#CodeImpots</title>
+	<meta charset="utf8" />
+
+	<link rel="stylesheet" href="css/default.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	
+	<script src="script/modernizr.custom.js"></script>
+
+</head>
+
+<body ng-controller="monCtrl" ng-class="{ready: ready}">
+	<header>
+	    <div class="container">
+	    	<h1>#CodeImpots</h1>
+  			<nav>
+				<a ng-class="{active: page=='declarant'}" class="nav-link" href="#" ng-click="setPage('declarant')">Déclaration</a>
+				<a ng-class="{active: page=='administration'}" class="nav-link" href="#" ng-click="setPage('administration')">Administration</a>
+  			</nav>
+	    </div>
+	</header>
+	
+    <div ng-controller="declarantCtlr" ng-if="page=='declarant'">
+        
+        <!-- Fenêtre modale de comparaison des déclarants -->
+        <div class="modal fade js-comparaison-coderev" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+					<div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			            <h4 class="modal-title" id="gridModalLabel">Comparaison avec le déclarant</h4>
+			        </div>
+			        
+				    <div class="modal-content">
+					    <form>
+	  						<label>Afficher les différences uniquement &nbsp;<input type="checkbox" ng-model="differenceSeulement"></label>
+	  					</form>
+				    	
+				        <table class="table table-striped">
+				            <thead>
+				                <tr>
+				                    <th>Code</th>
+				                    <th>Libellé</th>
+				                    <th>Votre déclaration</th>
+				                    <th>Autre déclaration</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				            	<!-- TODO filtre sur les différences -->
+				                <tr ng-repeat="codeRev in comparaison">
+				                    <td>{{codeRev.code}}</td>
+				                    <td>{{referenceCodes[codeRev.code]}}</td>
+				                    <td>{{codeRev.moi}}</td>
+				                    <td>{{codeRev.lui}}</td>
+				                </tr>
+				            </tbody>
+				        </table>
+				    </div>
+				</div>
+		    </div>
+		</div>
+    
+        <!-- Cadre qui contient le contenu de la déclaration -->
+        <div class="section" id="declarant">
+            <div class="container">
+	            <ul class="nav nav-tabs">
+				    <li class="nav-item">
+				        <a ng-class="{active: graphe=='textuelle'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('textuelle')">Textuelle</a>
+				    </li>
+				    <li class="nav-item">
+				        <a ng-class="{active: graphe=='codes'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('codes')">Codes</a>
+				    </li>
+				    <li class="nav-item">
+				        <a ng-class="{active: graphe=='file'}" class="nav-link" href="#" onClick="return false;" ng-click="setDeclarationType('file')">Accusé de réception</a>
+				    </li>
+				</ul>
+				<div class="tab-content col-xs-">
+		            <div class="tab-pane" ng-class="{active: declarationType=='textuelle'}">
+						<h2 class="cover-heading">Ma Déclaration.</h2>
+						<div class="form-inline nl-form">
+							Je suis né en <input type="text" size="4" ng-model="declarant.dateNaissance" class="form-control" />,
+				
+							je suis <select ng-model="declarant.situationFamiliale" class="form-control">
+								<option value="C">Célibataire</option>
+								<option value="M">Marié</option>
+								<option value="D">Divorcé</option>
+							</select>, j'ai <input type="text" size="2" ng-model="declarant.nombreEnfants" class="form-control" />
+							enfant(s). Mon revenu net imposable est de <input type="text" size="12" ng-model="declarant.netImposable" class="form-control" /> 
+							<span ng-if="declarant.situationFamiliale=='M'">et celui de mon/ma conjoint(e) est de 
+							<input type="text" size="12" ng-model="declarant.netImposableConjoint" class="form-control" /></span>.<br />
+							
+							<button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches()">Calculer!</button>
+						</div>
+					</div>
+					<div class="tab-pane" ng-class="{active: declarationType=='codes'}">
+					    <div class="form-group">
+					        <textarea type="text" rows="3" class="form-control" ng-model="codes" ng-change="updateCodeRevenus(codes)"></textarea>
+						    <button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches()">Calculer!</button>
+					    </div>
+					</div>
+					<div class="tab-pane" ng-class="{active: declarationType=='file'}">
+					    <div ngf-drop ngf-select ng-model="file" class="card drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" accept="application/pdf" ngf-pattern="'application/pdf'">
+						    <div class="card-title"><h2>Téléchargement</h2></div>
+						    <div class="card-block">
+						        <p class="card-text">Vous pouvez déposez ICI votre accusé de réception disponible après avoir fait votre télédéclaration en ligne.</p>
+						    </div>
+						</div>
+						<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+						<button type="submit" class="btn btn-primary pull-xs-right" ng-click="getProches()">Calculer!</button>
+					</div>
+				</div>
+				<h4 ng-show="declarant.montantIR">Vote imposition sur le revenu : {{declarant.montantIR}}</h4>
+			</div>
+		</div>
+
+        <div class="section" ng-show="declarant.codesRev.length">
+			<div class="container">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Code</th>
+							<th>Libellé</th>
+							<th>Valeur</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="codeRev in declarant.codesRev | orderBy:'+code'">
+							<td>{{codeRev.code}}</td>
+							<td>{{codeRev.libelle}}</td>
+							<td>{{codeRev.valeur}}</td>						
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- TODO mécanisme d'onglets pour afficher les différents graphes -->
+
+		<!-- Affiche du graphe force-layout -->
+        <div class="section" id="graphiques" ng-show="proches.length">
+            <ul class="nav nav-tabs">
+			    <li class="nav-item">
+			        <a ng-class="{active: graphe=='forcelayout'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('forcelayout')">Force et distance</a>
+			    </li>
+			    <li class="nav-item">
+			        <a ng-class="{active: graphe=='tilfordtree'}" class="nav-link" href="#" onClick="return false;" ng-click="setGraphe('tilfordtree')">Arbre</a>
+			    </li>
+			</ul>
+            <div id="graph-forcelayout" ng-if="graphe=='forcelayout'">
+			    <div class="row">
+					<!-- Graphe sur la gauche -->
+					<div class="col-sm-7 col-md-8 col-lg-9" force-layout>
+					</div>
+					<!-- Détail du déclarant proche dans un caddre sur la droite -->
+					<div class="col-sm-5 col-md-4 col-lg-3">
+						<div class="card card-block">
+						  <!-- Default panel contents -->
+						  <div class="card-title"><h3>Détails sur le déclarant</h3></div>
+						  <!-- TODO à compléter -->
+						  <div class="card-text">					    
+						    <p>Distance : {{proche.distance}}</p>
+						    <p>Année de naissance : {{proche.dateNaissance}}</p>
+						    <p>Situation familialee : {{proche.situationFamiliale}}</p>
+						    <p>Nombre d'enfants : {{proche.nombreEnfants}}</p>
+						    <p>Revenu net imposable : {{proche.netImposable}}</p>
+						    <p>Montant IR = {{proche.montantIR}}</p>
+						  </div>		
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="graph-tilfordtree" class="container" ng-if="graphe=='tilfordtree'">
+			     <div tilfordtree></div>
+			</div>
+		</div>
+		<div class="section" ng-show="proches.length">
+		    <!-- En dessous, sur toute la largeur, le tableau des déclarants proches -->
+		    <div class="row">
+				<div id="declarants-table" class="declarants section col-sm-12">
+		            <div class="container">
+						<h2>Déclarants proches</h2>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Année naissance</th>
+									<th>Situation familiale</th>
+									<th>Nombre enfants à charge</th>
+									<th>Revenu net imposable</th>
+									<th>IR</th>
+									<th>Distance</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="proche in proches | orderBy:'+distance'">
+									<td>{{proche.dateNaissance}}</td>
+									<td>{{proche.situationFamiliale}}</td>
+									<td>{{proche.nombreEnfants}}</td>
+									<td>{{proche.netImposable}}</td>
+									<td>{{proche.montantIR}}</td>
+									<td>{{proche.distance}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="section" ng-controller="adminCtlr" ng-if="page=='administration'">
+		<div class="container">
+			<h1 class="cover-heading">Actions</h1>
+			<div class="input-group">
+			    <span class="input-group-addon" id="label-nb-cluster">Nombre de clusters</span>
+			    <input type="text" placeholder="Exemple : 100" class="form-control" id="nbCluster" aria-describedby="label-nb-cluster" />	
+			    <span class="input-group-btn">
+			        <button type="submit" class="btn btn-primary" ng-click="setClusters()">Reset</button>
+			    </span>
+			</div>
+		</div>
+	</div>
+	
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-resource.min.js"></script>
+	<script src="lib/ng-grid-2.0.11.min.js"></script>
+	<script src="lib/ui-bootstrap-tpls.min.js"></script>
+	<script src="script/nlform.js"></script>
+	<script src="script/d3.min.js"></script>
+	
+	<script src="lib/ng-file-upload-shim.min.js"></script>
+	<script src="lib/ng-file-upload.min.js"></script>
+	
+	<script src="script/mainCtrl.js"></script>
+	<script src="script/codeImpots.js"></script>
+	<script src="script/adminCtrl.js"></script>
+	<script src="script/graph/forceLayout.js"></script>
+	<script src="script/graph/tilfordTree.js"></script>
+</body>
+</html>

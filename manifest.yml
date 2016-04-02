@@ -1,0 +1,9 @@
+---
+applications:
+- name: codeimpots
+  memory: 512M
+  host: codeimpots
+  domain: mybluemix.net
+  services:
+  - ElephantSQL-os
+  instances: 1

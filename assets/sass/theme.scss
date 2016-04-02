@@ -1,0 +1,84 @@
+$headerColor: #fff;
+
+@import "custom/graphiques";
+@import "custom/declaration";
+
+header {
+  height : 65px;
+  background-color: #000;
+  color: $headerColor;
+
+  h1 {
+    padding-top: 10px;
+    float: left;
+  }
+  
+  nav {
+    float: right;
+    
+    a {
+	  padding: 20px 20px 17px 20px;
+	  text-align: center;
+	  min-width: 100px;
+	  font-weight: bold;
+	  display: block;
+	  color: darken($headerColor, 0%);
+	  background-color: transparent;
+	  border-bottom: .25rem solid transparent;
+	}
+
+    a:hover, a:focus {
+	  color: darken($headerColor, 25%);
+      border-bottom-color: darken($headerColor, 25%);
+    }
+
+	a + a {
+	  margin-left: 1rem;
+	}
+
+	a.active {
+	  color: darken($headerColor, 10%);
+	  border-bottom-color: darken($headerColor, 10%);
+	}
+  }
+}
+
+.section {
+  vertical-align: middle;
+  min-height: 400px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+
+  &:nth-child(even) {
+    background: rgba(221,221,221,0.25);
+  }
+}
+
+body {
+  .section {
+    display: none;
+  }
+}
+body.ready {
+  .section {
+    display: block;
+  }
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
